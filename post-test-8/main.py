@@ -1,0 +1,85 @@
+def update_global(nama, total):
+    global total_pendapatan_global, jumlah_costumer_global, last_costumer_global
+    
+    tambahan_pendapatan = total
+    tambahan_costumer = 1
+    total_pendapatan_global += tambahan_pendapatan
+    jumlah_costumer_global += tambahan_costumer
+    last_costumer_global = nama
+
+
+data_costumer = {
+    "Dava": {"paket": "Paket 3 Orang", "jumlah": 1, "total_harga": 50000},
+    "Fahriza": {"paket": "Paket 6 Orang", "jumlah": 1, "total_harga": 90000}
+}
+
+paket = {
+    1: ("Paket (A) 1 Orang", 20000),
+    2: ("Paket (B) 3 Orang", 50000),
+    3: ("Paket (C) 6 Orang", 90000),
+    4: ("Paket (D) 8 Orang", 120000)
+}
+
+username_asli = "Dava"
+password_asli = "100"
+
+print("====== LOGIN SISTEM TIKET KOLAM RENANG ======")
+for percobaan in range(3):
+    username = input("Masukkan nama: ")
+    password = input("Masukkan password: ")
+    if username == username_asli and password == password_asli:
+        print("Login berhasil!.")
+        break
+    else:
+        print("nama atau password salah")
+else:
+    print("Anda telah gagal login 3 kali. Program berhenti.")
+    exit()
+
+while True:
+    print("""
+======== MENU UTAMA ========
+1. Tambah Data Costumer
+2. Lihat Data Costumer
+3. Ubah Data Costumer
+4. Hapus Data Costumer
+5. Keluar
+============================
+""")
+    pilih = input("Pilih menu (1-5): ")
+
+    if pilih == "1":
+        print("===== Tambah Data Costumer ====")
+        print("Pilih paket tiket:")
+        for i, n in paket.items():
+            print(f"{i}. {n[0]} - Rp{n[1]}")
+
+        pilih_paket = int(input("Masukkan nomor paket: "))
+
+        if pilih_paket in paket:
+            nama = input("Atas nama siapa kak: ")
+
+            if nama in data_costumer:
+                print("Nama tersebut sudah terdaftar, silakan gunakan nama lain.")
+                continue
+
+            jumlah = int(input("Mau beli berapa paket?: "))
+            harga_paket = paket[pilih_paket][1]
+            total_harga = harga_paket * jumlah
+
+            data_costumer[nama] = {
+                "paket": paket[pilih_paket][0],
+                "jumlah": jumlah,
+                "total_harga": total_harga
+            }
+
+            print("===============TOTAL HARGA================")
+            print(f"Paket         : {paket[pilih_paket][0]} x{jumlah}")
+            print(f"Harga paket   : Rp{harga_paket}")
+            print(f"Total bayar   : Rp{total_harga}")
+            print("==========================================")
+            print("Data costumer berhasil ditambahkan!")
+
+            
+        else:
+            print("Paket tidak tersedia.")
